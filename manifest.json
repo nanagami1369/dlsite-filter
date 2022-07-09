@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "dliste-image-filter",
+  "version": "1.0",
+
+  "description": "canvas filter from dlsite Play",
+
+  "icons": {
+    "48": "icons/filter-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://play.dlsite.com/*"],
+      "js": ["main.js"],
+      "css":["main.css"]
+    }
+  ]
+}
