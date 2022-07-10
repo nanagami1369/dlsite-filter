@@ -15,6 +15,7 @@ const dlsiteImageFilterMenu = `
 <input id="dlif-menu_is_open" type="checkbox" style="display: none;">
 <div id="dlif-menu">
 <div id="dlif-close-button-area">
+    <button id="dlif-reset-button">リセット</button>
     <button id="dlif-close-button">✕</button>
 </div>
 <div id="dlif-sepia-controller">
@@ -73,6 +74,16 @@ SaturateInput.addEventListener("input", () => {
   setCanvasStyle(SepiaInput.value, SaturateInput.value);
   SepiaSeekBar.value = SepiaInput.value;
   SaturateSeekBar.value = SaturateInput.value;
+});
+
+// リセットボタン
+const resetButton = document.getElementById("dlif-reset-button");
+resetButton.addEventListener("click", () => {
+  setCanvasStyle(0, 100);
+  SepiaSeekBar.value = 0;
+  SepiaInput.value = 0;
+  SaturateSeekBar.value = 100;
+  SaturateInput.value = 100;
 });
 
 // メニューの開閉
