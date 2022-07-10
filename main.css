@@ -5,7 +5,8 @@ body {
 
 .ImageViewer_imageViewerRender__RQ2Uf {
   /* dlif-menuを隠すときにスクロールバーが表示されてしまうので修正 */
-  overflow: hidden;
+  /* このCSSは要素に直接当たっているので!important */
+  overflow: hidden !important;
 }
 
 /* dlif <= 本addonで使うクラスにつける接頭辞 */
