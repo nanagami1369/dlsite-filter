@@ -16,7 +16,7 @@ const dlsiteImageFilterMenu = `
 <div id="dlif-menu">
 <div id="dlif-close-button-area">
     <label class="toggle-button-label" for="toggle-button-origin">有効化</label>
-    <input type="checkbox" id="toggle-button-origin" checked>
+    <input type="checkbox" id="toggle-button-origin">
     <label class="toggle-button-body" for="toggle-button-origin">
       <div class="toggle-button-handle"></div>
     </label>
@@ -79,6 +79,16 @@ SaturateInput.addEventListener("input", () => {
   setCanvasStyle(SepiaInput.value, SaturateInput.value);
   SepiaSeekBar.value = SepiaInput.value;
   SaturateSeekBar.value = SaturateInput.value;
+});
+
+// スタイルの有効化、無効化
+const isEnableCheckBox = document.getElementById("toggle-button-origin");
+// 初期化
+isEnableCheckBox.checked = true;
+dlsiteImageFilterStyle.disabled = !isEnableCheckBox.checked;
+// 更新
+isEnableCheckBox.addEventListener("change", () => {
+  dlsiteImageFilterStyle.disabled = !isEnableCheckBox.checked;
 });
 
 // リセットボタン
