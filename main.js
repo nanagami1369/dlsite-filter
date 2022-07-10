@@ -82,7 +82,7 @@ const loadStyle = () => {
   SepiaInput.value = dlifStyle.sepia;
   SaturateSeekBar.value = dlifStyle.saturate;
   SaturateInput.value = dlifStyle.saturate;
-  setCanvasStyle(dlifStyle.saturate, dlifStyle.saturate);
+  setCanvasStyle(dlifStyle.sepia, dlifStyle.saturate);
 };
 
 const saveStyle = (sepia, saturate) => {
