@@ -1,4 +1,22 @@
+body {
+  /* dlif-menuを隠すときにスクロールバーが表示されてしまうので修正 */
+  overflow: hidden;
+}
+
+.ImageViewer_imageViewerRender__RQ2Uf {
+  /* dlif-menuを隠すときにスクロールバーが表示されてしまうので修正 */
+  overflow: hidden;
+}
+
 /* dlif <= 本addonで使うクラスにつける接頭辞 */
+#dlif-menu_is_open + #dlif-menu {
+  transform: translateY(200px);
+  transition: transform 0.3s ease-in-out;
+}
+#dlif-menu_is_open:checked + #dlif-menu {
+  transform: translateY(0px);
+  transition: transform 0.3s ease-in-out;
+}
 
 #dlif-menu {
   position: absolute;
