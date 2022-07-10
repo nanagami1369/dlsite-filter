@@ -76,10 +76,6 @@ body {
   width: min(100% - 15rem, 777px);
 }
 
-.dlif-seek-bar-scale p {
-  cursor: pointer;
-}
-
 .dlif-seek-bar-scale p.dlif-min {
   width: 4rem;
   text-align: left;
