@@ -1,3 +1,4 @@
+/* dlsite本体のCSSを変更する部分 */
 body {
   /* dlif-menuを隠すときにスクロールバーが表示されてしまうので修正 */
   overflow: hidden;
@@ -8,6 +9,8 @@ body {
   /* このCSSは要素に直接当たっているので!important */
   overflow: hidden !important;
 }
+
+/* 本システム独自のDOMにスタイルを当てる部分 */
 
 /* dlif <= 本addonで使うクラスにつける接頭辞 */
 #dlif-menu_is_open + #dlif-menu {
