@@ -91,6 +91,10 @@ closeButton.addEventListener("touchend", () => {
 // mouse or 画面長押し時にメニューを開く
 
 const touchMenuStart = () => {
+  // もしメニューが開いていたら何もしない
+  if (document.getElementById("dlif-menu_is_open").checked) {
+    return;
+  }
   const timerId = setTimeout(() => {
     document.getElementById("dlif-menu_is_open").checked = true;
   }, waitOpenMenuTime);
@@ -113,6 +117,10 @@ const touchMenuStart = () => {
 document.addEventListener("touchstart", touchMenuStart, { passive: false });
 
 const cursorMenuStart = () => {
+  // もしメニューが開いていたら何もしない
+  if (document.getElementById("dlif-menu_is_open").checked) {
+    return;
+  }
   const timerId = setTimeout(() => {
     document.getElementById("dlif-menu_is_open").checked = true;
   }, waitOpenMenuTime);
