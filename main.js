@@ -162,23 +162,17 @@ const touchMenuStart = () => {
   const timerId = setTimeout(() => {
     document.getElementById("dlif-menu_is_open").checked = true;
   }, waitOpenMenuTime);
-
-  /**
-   * @param {Event} event
-   */
-  const touchMenuStop = (event) => {
-    event.preventDefault();
-
+  const touchMenuStop = () => {
     clearTimeout(timerId);
     /** @type {HTMLElement} */
     document.removeEventListener("touchend", touchMenuStop);
     document.removeEventListener("touchcancel", touchMenuStop);
   };
-  document.addEventListener("touchend", touchMenuStop, { passive: false });
-  document.addEventListener("touchcancel", touchMenuStop, { passive: false });
+  document.addEventListener("touchend", touchMenuStop);
+  document.addEventListener("touchcancel", touchMenuStop);
 };
 
-document.addEventListener("touchstart", touchMenuStart, { passive: false });
+document.addEventListener("touchstart", touchMenuStart);
 
 const cursorMenuStart = () => {
   // もしメニューが開いていたら何もしない
@@ -189,17 +183,12 @@ const cursorMenuStart = () => {
     document.getElementById("dlif-menu_is_open").checked = true;
   }, waitOpenMenuTime);
 
-  /**
-   * @param {Event} event
-   */
-  const cursorMenuStop = (event) => {
-    event.preventDefault();
-
+  const cursorMenuStop = () => {
     clearTimeout(timerId);
     /** @type {HTMLElement} */
     document.removeEventListener("mouseup", cursorMenuStop);
   };
-  document.addEventListener("mouseup", cursorMenuStop, { passive: false });
+  document.addEventListener("mouseup", cursorMenuStop);
 };
 
-document.addEventListener("mousedown", cursorMenuStart, { passive: false });
+document.addEventListener("mousedown", cursorMenuStart);
