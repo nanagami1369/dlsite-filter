@@ -16,7 +16,7 @@
     {
       "matches": ["*://play.dlsite.com/*"],
       "js": ["main.js"],
-      "css":["main.css"]
+      "css": ["main.css"]
     }
   ]
 }
