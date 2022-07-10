@@ -18,7 +18,7 @@ const dlsiteImageFilterMenu = `
     <button id="dlif-reset-button">リセット</button>
     <button id="dlif-close-button">✕</button>
 </div>
-<div id="dlif-sepia-controller">
+<div class="dlif-controller">
   <label for="dlif-sepia-seek-bar">セピア</label>
   <input id="dlif-sepia-seek-bar" type="range" min="0" max="1" step="0.01" value="0">
   <input type="number" min="0" max="1" step="0.01" value="0" id="dlif-sepia-input"><span>px</span>
@@ -26,7 +26,7 @@ const dlsiteImageFilterMenu = `
     <p class="dlif-min">0</p><p class="dlif-mid">0.5</p><p class="dlif-max">1</p>
   </div>
 </div>
-<div class="dlif-saturate-controller">
+<div class="dlif-controller">
   <label for="dlif-saturate-seek-bar">彩度</label>
   <input id="dlif-saturate-seek-bar" type="range" min="0" max="200" value="100">
   <input type="number" min="0" max="200" step="0" value="100" id="dlif-saturate-input"><span>%</span>
