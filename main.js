@@ -25,16 +25,16 @@ const dlsiteImageFilterMenu = `
 </div>
 <div class="dlif-controller">
   <label for="dlif-sepia-seek-bar">セピア</label>
-  <input id="dlif-sepia-seek-bar" type="range" min="0" max="1" step="0.01" value="0">
-  <input type="number" min="0" max="1" step="0.01" value="0" id="dlif-sepia-input"><span>px</span>
+  <input id="dlif-sepia-seek-bar" type="range" min="0" max="1" step="0.01" >
+  <input type="number" min="0" max="1" step="0.01" id="dlif-sepia-input"><span>px</span>
   <div class="dlif-seek-bar-scale">
     <p class="dlif-min">0</p><p class="dlif-mid">0.5</p><p class="dlif-max">1</p>
   </div>
 </div>
 <div class="dlif-controller">
   <label for="dlif-saturate-seek-bar">彩度</label>
-  <input id="dlif-saturate-seek-bar" type="range" min="0" max="200" value="100">
-  <input type="number" min="0" max="200" step="0" value="100" id="dlif-saturate-input"><span>%</span>
+  <input id="dlif-saturate-seek-bar" type="range" min="0" max="200">
+  <input type="number" min="0" max="200" step="0" id="dlif-saturate-input"><span>%</span>
   <div class="dlif-seek-bar-scale">
     <p class="dlif-min">0%</p><p class="dlif-mid">100%</p><p class="dlif-max">200%</p>
   </div>
@@ -60,6 +60,17 @@ const SepiaInput = document.getElementById("dlif-sepia-input");
 const SaturateSeekBar = document.getElementById("dlif-saturate-seek-bar");
 const SaturateInput = document.getElementById("dlif-saturate-input");
 
+const resetStyle = () => {
+  SepiaSeekBar.value = 0;
+  SepiaInput.value = 0;
+  SaturateSeekBar.value = 100;
+  SaturateInput.value = 100;
+  setCanvasStyle(0, 100);
+};
+
+// 初期化
+resetStyle();
+// 更新
 SepiaSeekBar.addEventListener("input", () => {
   setCanvasStyle(SepiaSeekBar.value, SaturateSeekBar.value);
   SepiaInput.value = SepiaSeekBar.value;
@@ -93,13 +104,7 @@ isEnableCheckBox.addEventListener("change", () => {
 
 // リセットボタン
 const resetButton = document.getElementById("dlif-reset-button");
-resetButton.addEventListener("click", () => {
-  setCanvasStyle(0, 100);
-  SepiaSeekBar.value = 0;
-  SepiaInput.value = 0;
-  SaturateSeekBar.value = 100;
-  SaturateInput.value = 100;
-});
+resetButton.addEventListener("click", resetStyle);
 
 // メニューの開閉
 
