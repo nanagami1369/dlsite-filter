@@ -125,9 +125,9 @@ saveButton.addEventListener("click", () =>
   // InputかSeekかはどちらでも良い
   saveStyle(SepiaInput.value, SaturateInput.value)
 );
-saveButton.addEventListener("touchend", () => {
-  saveStyle(SepiaInput.value, SaturateInput.value);
-});
+saveButton.addEventListener("touchend", () =>
+  saveStyle(SepiaInput.value, SaturateInput.value)
+);
 
 // スタイルの有効化、無効化
 const isEnableCheckBox = document.getElementById("toggle-button-origin");
