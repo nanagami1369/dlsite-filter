@@ -4,6 +4,8 @@
 // 設定置き場
 /** @type { number } メニュー表示するまでの待ち時間 */
 const waitOpenMenuTime = 450;
+/** localStorageで保存する時に使うキー */
+const dlifStyleLabel = "dlif-style";
 
 // dlif <= 本addonで使うクラスにつける接頭辞
 
@@ -15,6 +17,7 @@ const dlsiteImageFilterMenu = `
 <input id="dlif-menu_is_open" type="checkbox" style="display: none;">
 <div id="dlif-menu">
 <div id="dlif-close-button-area">
+    <button id="dlif-save-button">現在の値を保存</button>
     <label class="toggle-button-label" for="toggle-button-origin">有効化</label>
     <input type="checkbox" id="toggle-button-origin">
     <label class="toggle-button-body" for="toggle-button-origin">
@@ -68,8 +71,32 @@ const resetStyle = () => {
   setCanvasStyle(0, 100);
 };
 
+const loadStyle = () => {
+  const dlifStyleJSON = localStorage.getItem(dlifStyleLabel);
+  if (dlifStyleJSON == null) {
+    resetStyle();
+    return;
+  }
+  const dlifStyle = JSON.parse(dlifStyleJSON);
+  SepiaSeekBar.value = dlifStyle.sepia;
+  SepiaInput.value = dlifStyle.sepia;
+  SaturateSeekBar.value = dlifStyle.saturate;
+  SaturateInput.value = dlifStyle.saturate;
+  setCanvasStyle(dlifStyle.saturate, dlifStyle.saturate);
+};
+
+const saveStyle = (sepia, saturate) => {
+  localStorage.setItem(
+    dlifStyleLabel,
+    JSON.stringify({
+      sepia: sepia,
+      saturate: saturate,
+    })
+  );
+};
+
 // 初期化
-resetStyle();
+loadStyle();
 // 更新
 SepiaSeekBar.addEventListener("input", () => {
   setCanvasStyle(SepiaSeekBar.value, SaturateSeekBar.value);
@@ -91,6 +118,13 @@ SaturateInput.addEventListener("input", () => {
   SepiaSeekBar.value = SepiaInput.value;
   SaturateSeekBar.value = SaturateInput.value;
 });
+
+// スタイルの保存
+const saveButton = document.getElementById("dlif-save-button");
+saveButton.addEventListener("click", () =>
+  // InputかSeekかはどちらでも良い
+  saveStyle(SepiaInput.value, SaturateInput.value)
+);
 
 // スタイルの有効化、無効化
 const isEnableCheckBox = document.getElementById("toggle-button-origin");
