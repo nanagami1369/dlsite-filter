@@ -60,7 +60,6 @@ SepiaSeekBar.addEventListener("input", () => {
   SaturateInput.value = SaturateSeekBar.value;
 });
 SepiaInput.addEventListener("input", () => {
-  console.log(SepiaSeekBar.value);
   setCanvasStyle(SepiaInput.value, SaturateInput.value);
   SepiaSeekBar.value = SepiaInput.value;
   SaturateSeekBar.value = SaturateInput.value;
