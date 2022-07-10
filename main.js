@@ -1,6 +1,10 @@
 "use strict";
 // @ts-check
 
+// 設定置き場
+/** @type { number } メニュー表示するまでの待ち時間 */
+const waitOpenMenuTime = 450;
+
 // dlif <= 本addonで使うクラスにつける接頭辞
 
 // メニューを表示する処理
@@ -11,7 +15,7 @@ const dlsiteImageFilterMenu = `
 <input id="dlif-menu_is_open" type="checkbox" style="display: none;">
 <div id="dlif-menu">
 <div id="dlif-close-button-area">
-    <button onclick="document.getElementById('dlif-menu_is_open').checked = false">✕</button>
+    <button id="dlif-close-button">✕</button>
 </div>
 <div id="dlif-sepia-controller">
   <label for="dlif-sepia-seek-bar">セピア</label>
@@ -72,25 +76,58 @@ SaturateInput.addEventListener("input", () => {
   SaturateSeekBar.value = SaturateInput.value;
 });
 
-let count = 0;
-document.addEventListener("load", (event) => console.log(event));
-const observer = new window.MutationObserver(() => {
-  console.log("呼び出し回数" + count++);
-  const nav = document.querySelector(".Menu_nav__jFWZt");
-  if (nav !== null) {
-    console.log("complete setup for dlif");
-    observer.disconnect();
-    if (document.getElementById("dlif-menu-button") != null) {
-      document.getElementById("dlif-menu-button").remove();
-    }
+// メニューの開閉
 
-    /** @type {HTMLElement} */
-    const nav = document.querySelector(".Menu_nav__jFWZt");
-    nav.insertAdjacentHTML(
-      "beforeend",
-      `<li id="dlif-menu-button" class="Menu_item__jfaZL"><a onclick="document.getElementById('dlif-menu_is_open').checked = true"><span>あああ</span></a></li>`
-    );
-  }
+// 閉じるボタンで閉じる
+
+const closeButton = document.getElementById("dlif-close-button");
+closeButton.addEventListener("click", () => {
+  document.getElementById("dlif-menu_is_open").checked = false;
+});
+closeButton.addEventListener("touchend", () => {
+  document.getElementById("dlif-menu_is_open").checked = false;
 });
 
-observer.observe(document.body, { childList: true });
+// mouse or 画面長押し時にメニューを開く
+
+const touchMenuStart = () => {
+  const timerId = setTimeout(() => {
+    document.getElementById("dlif-menu_is_open").checked = true;
+  }, waitOpenMenuTime);
+
+  /**
+   * @param {Event} event
+   */
+  const touchMenuStop = (event) => {
+    event.preventDefault();
+
+    clearTimeout(timerId);
+    /** @type {HTMLElement} */
+    document.removeEventListener("touchend", touchMenuStop);
+    document.removeEventListener("touchcancel", touchMenuStop);
+  };
+  document.addEventListener("touchend", touchMenuStop, { passive: false });
+  document.addEventListener("touchcancel", touchMenuStop, { passive: false });
+};
+
+document.addEventListener("touchstart", touchMenuStart, { passive: false });
+
+const cursorMenuStart = () => {
+  const timerId = setTimeout(() => {
+    document.getElementById("dlif-menu_is_open").checked = true;
+  }, waitOpenMenuTime);
+
+  /**
+   * @param {Event} event
+   */
+  const cursorMenuStop = (event) => {
+    event.preventDefault();
+
+    clearTimeout(timerId);
+    /** @type {HTMLElement} */
+    document.removeEventListener("mouseup", cursorMenuStop);
+  };
+  document.addEventListener("mouseup", cursorMenuStop, { passive: false });
+};
+
+document.addEventListener("mousedown", cursorMenuStart, { passive: false });
