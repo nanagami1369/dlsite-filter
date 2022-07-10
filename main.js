@@ -15,6 +15,11 @@ const dlsiteImageFilterMenu = `
 <input id="dlif-menu_is_open" type="checkbox" style="display: none;">
 <div id="dlif-menu">
 <div id="dlif-close-button-area">
+    <label class="toggle-button-label" for="toggle-button-origin">有効化</label>
+    <input type="checkbox" id="toggle-button-origin" checked>
+    <label class="toggle-button-body" for="toggle-button-origin">
+      <div class="toggle-button-handle"></div>
+    </label>
     <button id="dlif-reset-button">リセット</button>
     <button id="dlif-close-button">✕</button>
 </div>

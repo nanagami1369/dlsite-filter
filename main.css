@@ -40,6 +40,46 @@ body {
   justify-content: flex-end;
 }
 
+#dlif-menu .toggle-button-label {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+#toggle-button-origin {
+  display: none;
+}
+
+.toggle-button-body {
+  margin: 0px;
+  position: relative;
+  height: 30px;
+  width: 60px;
+  border-radius: 25px;
+  background-color: #757580;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.toggle-button-handle {
+  margin: 0;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  pointer-events: none;
+  background-color: #dddde4;
+  transform: none;
+  transition: transform 0.3s ease-in-out;
+}
+#toggle-button-origin:checked + .toggle-button-body {
+  background-color: #01d952;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#toggle-button-origin:checked + .toggle-button-body > .toggle-button-handle {
+  transform: translateX(30px);
+  transition: transform 0.2s ease-in-out;
+}
+
 #dlif-close-button-area #dlif-close-button {
   background-color: red;
   color: #fff;
