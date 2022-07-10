@@ -162,6 +162,10 @@ const touchMenuStart = () => {
   if (document.getElementById("dlif-menu_is_open").checked) {
     return;
   }
+  // もしPlayer画面以外なら何もしない
+  if (!location.hash.startsWith("#/work/")) {
+    return;
+  }
   const timerId = setTimeout(() => {
     document.getElementById("dlif-menu_is_open").checked = true;
   }, waitOpenMenuTime);
@@ -180,6 +184,10 @@ document.addEventListener("touchstart", touchMenuStart);
 const cursorMenuStart = () => {
   // もしメニューが開いていたら何もしない
   if (document.getElementById("dlif-menu_is_open").checked) {
+    return;
+  }
+  // もしPlayer画面以外なら何もしない
+  if (!location.hash.startsWith("#/work/")) {
     return;
   }
   const timerId = setTimeout(() => {
