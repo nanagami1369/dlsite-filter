@@ -157,13 +157,20 @@ closeButton.addEventListener("touchend", () => {
 
 // mouse or 画面長押し時にメニューを開く
 
-const touchMenuStart = () => {
+/**
+ * @param {TouchEvent} event
+ */
+const touchMenuStart = (event) => {
   // もしメニューが開いていたら何もしない
   if (document.getElementById("dlif-menu_is_open").checked) {
     return;
   }
   // もしPlayer画面以外なら何もしない
   if (!location.hash.startsWith("#/work/")) {
+    return;
+  }
+  // 上部100px以外なら終了
+  if (event.touches[0].clientY > 100) {
     return;
   }
   const timerId = setTimeout(() => {
@@ -181,13 +188,19 @@ const touchMenuStart = () => {
 
 document.addEventListener("touchstart", touchMenuStart);
 
-const cursorMenuStart = () => {
+/**
+ * @param {MouseEvent} event
+ */
+const cursorMenuStart = (event) => {
   // もしメニューが開いていたら何もしない
   if (document.getElementById("dlif-menu_is_open").checked) {
     return;
   }
   // もしPlayer画面以外なら何もしない
   if (!location.hash.startsWith("#/work/")) {
+    return;
+  }
+  if (event.clientY > 100) {
     return;
   }
   const timerId = setTimeout(() => {
