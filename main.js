@@ -35,6 +35,14 @@ const dlsiteImageFilterMenu = `
   </div>
 </div>
 <div class="dlif-controller">
+  <label for="dlif-hue-seek-bar">色相</label>
+  <input id="dlif-hue-seek-bar" type="range" min="0" max="360">
+  <input type="number" min="0" max="360" step="0" id="dlif-hue-input"><span>deg</span>
+  <div class="dlif-seek-bar-scale">
+    <p class="dlif-min">0deg</p><p class="dlif-mid">100deg</p><p class="dlif-max">360deg</p>
+  </div>
+</div>
+<div class="dlif-controller">
   <label for="dlif-saturate-seek-bar">彩度</label>
   <input id="dlif-saturate-seek-bar" type="range" min="0" max="200">
   <input type="number" min="0" max="200" step="0" id="dlif-saturate-input"><span>%</span>
@@ -50,25 +58,29 @@ document.body.insertAdjacentHTML("beforeend", dlsiteImageFilterMenu);
 // スタイルを設定する処理
 
 const dlsiteImageFilterStyle = document.getElementById("dlif-style");
-const setCanvasStyle = (sepia, saturate) => {
+const setCanvasStyle = (sepia, hue, saturate) => {
   // prettier-ignore
   dlsiteImageFilterStyle.textContent = `
       canvas {
-            filter: sepia(${sepia}) saturate(${saturate}%);
+            filter: sepia(${sepia}) hue-rotate(${hue}deg) saturate(${saturate}%);
       }`;
 };
 
 const SepiaSeekBar = document.getElementById("dlif-sepia-seek-bar");
 const SepiaInput = document.getElementById("dlif-sepia-input");
+const HueSeekBar = document.getElementById("dlif-hue-seek-bar");
+const HueInput = document.getElementById("dlif-hue-input");
 const SaturateSeekBar = document.getElementById("dlif-saturate-seek-bar");
 const SaturateInput = document.getElementById("dlif-saturate-input");
 
 const resetStyle = () => {
   SepiaSeekBar.value = 0;
   SepiaInput.value = 0;
+  HueSeekBar.value = 0;
+  HueInput.value = 0;
   SaturateSeekBar.value = 100;
   SaturateInput.value = 100;
-  setCanvasStyle(0, 100);
+  setCanvasStyle(0, 0, 100);
 };
 
 const loadStyle = () => {
@@ -82,14 +94,17 @@ const loadStyle = () => {
   SepiaInput.value = dlifStyle.sepia;
   SaturateSeekBar.value = dlifStyle.saturate;
   SaturateInput.value = dlifStyle.saturate;
-  setCanvasStyle(dlifStyle.sepia, dlifStyle.saturate);
+  HueSeekBar.value = dlifStyle.hue;
+  HueInput.value = dlifStyle.hue;
+  setCanvasStyle(dlifStyle.sepia, dlifStyle.hue, dlifStyle.saturate);
 };
 
-const saveStyle = (sepia, saturate) => {
+const saveStyle = (sepia, hue, saturate) => {
   localStorage.setItem(
     dlifStyleLabel,
     JSON.stringify({
       sepia: sepia,
+      hue: hue,
       saturate: saturate,
     })
   );
@@ -99,23 +114,39 @@ const saveStyle = (sepia, saturate) => {
 loadStyle();
 // 更新
 SepiaSeekBar.addEventListener("input", () => {
-  setCanvasStyle(SepiaSeekBar.value, SaturateSeekBar.value);
+  setCanvasStyle(SepiaSeekBar.value, HueSeekBar.value, SaturateSeekBar.value);
   SepiaInput.value = SepiaSeekBar.value;
+  HueInput.value = HueSeekBar.value;
   SaturateInput.value = SaturateSeekBar.value;
 });
 SepiaInput.addEventListener("input", () => {
-  setCanvasStyle(SepiaInput.value, SaturateInput.value);
+  setCanvasStyle(SepiaInput.value, HueInput.value, SaturateInput.value);
   SepiaSeekBar.value = SepiaInput.value;
+  HueSeekBar.value = HueInput.value;
+  SaturateSeekBar.value = SaturateInput.value;
+});
+HueSeekBar.addEventListener("input", () => {
+  setCanvasStyle(SepiaSeekBar.value, HueSeekBar.value, SaturateSeekBar.value);
+  SepiaInput.value = SepiaSeekBar.value;
+  HueInput.value = HueSeekBar.value;
+  SaturateInput.value = SaturateSeekBar.value;
+});
+HueInput.addEventListener("input", () => {
+  setCanvasStyle(SepiaInput.value, HueInput.value, SaturateInput.value);
+  SepiaSeekBar.value = SepiaInput.value;
+  HueSeekBar.value = HueInput.value;
   SaturateSeekBar.value = SaturateInput.value;
 });
 SaturateSeekBar.addEventListener("input", () => {
-  setCanvasStyle(SepiaSeekBar.value, SaturateSeekBar.value);
+  setCanvasStyle(SepiaSeekBar.value, HueSeekBar.value, SaturateSeekBar.value);
   SepiaInput.value = SepiaSeekBar.value;
+  HueInput.value = HueSeekBar.value;
   SaturateInput.value = SaturateSeekBar.value;
 });
 SaturateInput.addEventListener("input", () => {
-  setCanvasStyle(SepiaInput.value, SaturateInput.value);
+  setCanvasStyle(SepiaInput.value, HueInput.value, SaturateInput.value);
   SepiaSeekBar.value = SepiaInput.value;
+  HueSeekBar.value = HueInput.value;
   SaturateSeekBar.value = SaturateInput.value;
 });
 
@@ -123,10 +154,10 @@ SaturateInput.addEventListener("input", () => {
 const saveButton = document.getElementById("dlif-save-button");
 saveButton.addEventListener("click", () =>
   // InputかSeekかはどちらでも良い
-  saveStyle(SepiaInput.value, SaturateInput.value)
+  saveStyle(SepiaInput.value, HueInput.value, SaturateInput.value)
 );
 saveButton.addEventListener("touchend", () =>
-  saveStyle(SepiaInput.value, SaturateInput.value)
+  saveStyle(SepiaInput.value, HueInput.value, SaturateInput.value)
 );
 
 // スタイルの有効化、無効化
